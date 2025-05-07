@@ -1,0 +1,12 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - bq
+      - query
+      - --use_legacy_sql=false
+      - --project=${PROJECT_ID}
+      - --replace
+      - < sql/clean_and_transform_data.sql
+    dir: .
+
+timeout: 600s

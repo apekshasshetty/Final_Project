@@ -4,7 +4,7 @@ steps:
     args:
       - -c
       - |
-        bq query --use_legacy_sql=false --project_id=${PROJECT_ID} < data_pipeline/sql/clean_and_transform_data.sql
+        bq query --use_legacy_sql=false --project_id=${PROJECT_ID} < /final_project/data_pipeline/sql/clean_and_transform_data.sql
 
 timeout: 600s
 

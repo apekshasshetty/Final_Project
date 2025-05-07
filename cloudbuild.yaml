@@ -1,13 +1,10 @@
 steps:
-  - name: gcr.io/cloud-builders/bq
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
     args:
-      - query
-      - --use_legacy_sql=false
-      - --project=${PROJECT_ID}
-      - --replace
-      - -f
-      - sql/clean_and_transform_data.sql
-    dir: .
+      - -c
+      - |
+        bq query --use_legacy_sql=false --project_id=${PROJECT_ID} < sql/clean_and_transform_data.sql
 
 timeout: 600s
 

@@ -1,10 +1,16 @@
 steps:
+  # Debugging step (optional but highly recommended)
+  - name: 'alpine'
+    entrypoint: 'sh'
+    args: ['-c', 'ls -R /workspace']
+
+  # Main execution step
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args:
       - -c
       - |
-        bq query --use_legacy_sql=false --project_id=${PROJECT_ID} < /final_project/data_pipeline/sql/clean_and_transform_data.sql
+        bq query --use_legacy_sql=false --project_id=${PROJECT_ID} < /workspace/data_pipeline/sql/clean_and_transform_data.sql
 
 timeout: 600s
 

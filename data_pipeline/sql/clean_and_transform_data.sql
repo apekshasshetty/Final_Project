@@ -1,6 +1,6 @@
 CREATE OR REPLACE PROCEDURE walmart_data.refresh_transformed_data()
 BEGIN
-  -- Step 1: Create cleaned_data (unchanged)
+  -- Step 1: Create cleaned_data
   CREATE OR REPLACE TABLE walmart_data.cleaned_data AS
   SELECT
     `Uniq Id`,
@@ -17,7 +17,7 @@ BEGIN
   FROM
     walmart_data.data;
 
-  -- Step 2: Create transformed_data WITH NULL PRICE FILTERING
+  -- Step 2: Create transformed_data
   CREATE OR REPLACE TABLE walmart_data.transformed_data AS
   WITH inr_rate_cte AS (
     SELECT inr_rate
@@ -32,6 +32,5 @@ BEGIN
     c.*, 
     c.`Product Price` * r.inr_rate AS `Price_In_INR`
   FROM walmart_data.cleaned_data c
-  CROSS JOIN inr_rate_cte r
-  WHERE c.`Product Price` IS NOT NULL;  -- This excludes NULL prices
+  CROSS JOIN inr_rate_cte r;
 END;
